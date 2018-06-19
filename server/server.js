@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const moment = require('moment');
 
 const publicPath = path.join(__dirname,'../public');
 const port = process.env.PORT || 3000;
@@ -26,13 +27,13 @@ io.on('connection', (socket) => {
     socket.emit('newMessage',{
         from: 'Chat App',
         text: 'Welcome',
-        createdAt: new Date().toString()
+        createdAt: moment().valueOf()
     });
 
     socket.broadcast.emit('newMessage', {
         from: 'Chat App',
         text: 'A new user joined!',
-        creatdAt: new Date().toString()
+        creatdAt: moment().valueOf()
     })
 
     socket.on('disconnect', () => {
@@ -51,7 +52,7 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('newMessage', {
             from: message.from,
             text: message.text,
-            createdAt: new Date().toString()
+            createdAt: moment().valueOf()
         });
 
         console.log('Create email', message);

@@ -23,7 +23,8 @@ socket.on('newMessage', function(message){
 
 function appendMessage(message){
     const li = $('<li></li>');
-    li.text(`${message.from} : ${message.text}`);
+    const formattedTime = moment(message.createdAt).format('h:mm a');
+    li.text(`${formattedTime} ${message.from} : ${message.text}`);
 
     $('#messages').append(li);
 }
@@ -33,7 +34,8 @@ $('#c-form').on('submit', function(e){
     e.preventDefault();
     const message = {
         from: 'User',
-        text: $('#c-form input[name=message]').val()
+        text: $('#c-form input[name=message]').val(),
+        createdAt: moment().valueOf()
     }
 
     socket.emit('createMessage', message, function(){
