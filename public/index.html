@@ -8,8 +8,24 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 <body>
+
+    <div class="message-form">
+        <ol id="messages"></ol>
+    </div>
     
+    
+    <div class="message-send-form">
+        <form id="c-form">
+            <input type="text" name="message" placeholder="Message">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
     <script src="/js/main.js"></script>
 </body>
 </html>

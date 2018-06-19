@@ -5,20 +5,40 @@ const socket = io();
 socket.on('connect', function() {
     console.log('Connected to server.');
 
-    socket.emit('createMessage',{
-        to:'example@com',
-        text:'OMEGALUL'
-    }, function(){
-        console.log('got it');
-    });
+    //socket.emit('createMessage',{
+    //    to:'example@com',
+    //    text:'OMEGALUL'
+    //}, function(){
+    //    console.log('got it');
+    //});
 });
 
 socket.on('disconnect',function() {
     console.log('Disconnected from server.');
 });
 
-socket.on('newMessage', function(email){
-    console.log('New Email', email);
+socket.on('newMessage', function(message){
+    appendMessage(message);
+});
+
+function appendMessage(message){
+    const li = $('<li></li>');
+    li.text(`${message.from} : ${message.text}`);
+
+    $('#messages').append(li);
+}
+
+
+$('#c-form').on('submit', function(e){
+    e.preventDefault();
+    const message = {
+        from: 'User',
+        text: $('#c-form input[name=message]').val()
+    }
+
+    socket.emit('createMessage', message, function(){
+       appendMessage(message);
+    })
 });
 
         
